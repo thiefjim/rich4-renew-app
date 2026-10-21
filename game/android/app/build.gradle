@@ -1,8 +1,17 @@
 apply plugin: 'com.android.application'
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystorePropertiesFile.withInputStream { keystoreProperties.load(it) }
+}
+
 android {
     namespace "pro.areu.rich4"
     compileSdk rootProject.ext.compileSdkVersion
+    if (project.hasProperty('rich4AssetPacks')) {
+        assetPacks = [':art_assets', ':world_assets']
+    }
     defaultConfig {
         applicationId "com.jjlindev.rich4"
         minSdkVersion rootProject.ext.minSdkVersion
@@ -18,8 +27,21 @@ android {
             noCompress 'webp', 'png', 'jpg', 'mp3', 'ogg', 'm4a', 'wav', 'woff', 'woff2'
         }
     }
+    signingConfigs {
+        release {
+            if (!keystoreProperties.isEmpty()) {
+                storeFile file(keystoreProperties.getProperty('storeFile'))
+                storePassword keystoreProperties.getProperty('storePassword')
+                keyAlias keystoreProperties.getProperty('keyAlias')
+                keyPassword keystoreProperties.getProperty('keyPassword')
+            }
+        }
+    }
     buildTypes {
         release {
+            if (!keystoreProperties.isEmpty()) {
+                signingConfig signingConfigs.release
+            }
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

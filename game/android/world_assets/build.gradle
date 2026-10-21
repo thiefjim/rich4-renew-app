@@ -1,0 +1,8 @@
+apply plugin: 'com.android.asset-pack'
+
+assetPack {
+    packName = 'world_assets'
+    dynamicDelivery {
+        deliveryType = 'install-time'
+    }
+}

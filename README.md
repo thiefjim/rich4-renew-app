@@ -35,5 +35,27 @@ npm run ios      # 打包並安裝到已連接的 iPhone
 npm run package  # 出安裝包到 game/release/：安卓 APK（可直接安裝）＋ 未簽名 iOS IPA
 ```
 
+### Android internal-testing AAB
+
+Run `cd game && npm run bundle` with JDK 21 and the Android SDK installed.
+Use `npm run bundle -- --no-build` to reuse an existing `dist/`.
+If `JAVA_HOME` points to an older JDK on macOS, prefix the command with
+`JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"`.
+Output: `game/android/app/build/outputs/bundle/release/app-release.aab`.
+Version 0.6.6 uses versionCode 34.
+
+Release signing reads ignored `game/android/key.properties`, following the Laiki convention:
+`storeFile` points to an external upload keystore (for example `~/keystores/rich4-upload.jks`,
+written as an absolute path); `storePassword`, `keyAlias`, and `keyPassword` supply its credentials.
+Keep the keystore outside Git and restrict both files to owner access.
+The bundle command requires these credentials; debug builds do not.
+
+After Capacitor sync, bundle packaging temporarily moves `hd` and `orig` into the install-time
+`art_assets` pack, and `maps`, `audio`, and `ground` into `world_assets`.
+Both retain `assets/public/assets/...` for Android's merged AssetManager.
+Generated pack contents are ignored and moved back after the build, including on Gradle failure.
+`npm run package -- apk` is unchanged: it syncs all assets into a standalone debug APK without packs.
+Original game assets are private-use only; distribute this AAB through internal testing only.
+
 ## 授權
 GPL-3.0-or-later（規則研究引用 mytbk/rich4，見 `THIRD_PARTY.md`）。Releases 裡的大富翁4 原遊戲資源及其重繪不在此授權範圍，僅供私人使用。
