@@ -8,8 +8,8 @@
   // 每 10 分鐘檢查 pending 的 iOS 報名：接受團隊邀請後加進 TestFlight 內部群組。
   "triggers": { "crons": ["*/10 * * * *"] },
   "kv_namespaces": [{ "binding": "KV", "id": "b252cc1151f64489b6cabb3603418ace" }],
-  // Android 報名通知。只能寄到已驗證的 Email Routing 收件地址；寄件網域 tappedia.com 已開 Email Routing。
-  "send_email": [{ "name": "MAIL", "destination_address": "jj@jjlindev.com" }],
+  // Android 報名通知。只能寄到已驗證的 Email Routing 收件地址；寄件子網域 notify.jjlindev.com 開了 Email Routing（主網域 MX 仍是 iCloud）。
+  "send_email": [{ "name": "MAIL", "destination_address": "notify@jjlindev.com" }],
   "secrets": {
     "required": ["INVITE_CODE", "ADMIN_TOKEN", "ASC_PRIVATE_KEY", "ASC_KEY_ID", "ASC_ISSUER_ID"]
   }
