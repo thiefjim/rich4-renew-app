@@ -7,7 +7,7 @@
 //
 // The backup is the assets the app bundles (dist/assets: hd, orig, maps, audio, ground), only re-sent when they changed.
 // Restore on another computer:
-//   xcrun devicectl device copy from --device <id> --domain-type appDataContainer --domain-identifier pro.areu.rich4 \
+//   xcrun devicectl device copy from --device <id> --domain-type appDataContainer --domain-identifier com.jjlindev.rich4 \
 //     --source Documents/rich4-assets-backup.tar --destination ~/Downloads/rich4-assets-backup.tar
 //   (and the .sha256 next to it; check it with shasum -a 256 -c), then: tar -xf ~/Downloads/rich4-assets-backup.tar -C game/public
 import { execFileSync, spawnSync } from 'node:child_process';
@@ -19,7 +19,7 @@ import { fileURLToPath } from 'node:url';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const args = new Set(process.argv.slice(2));
-const BUNDLE_ID = 'pro.areu.rich4';
+const BUNDLE_ID = 'com.jjlindev.rich4';
 const NAME = 'rich4-assets-backup';
 const cache = join(root, '.cache/ios');
 mkdirSync(cache, { recursive: true });
