@@ -1,0 +1,16 @@
+{
+  "name": "rich4-signup",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "node test/signup.test.mjs",
+    "check": "tsc",
+    "deploy": "wrangler deploy",
+    "types": "wrangler types"
+  },
+  "type": "module",
+  "devDependencies": {
+    "typescript": "^7.0.2",
+    "wrangler": "^4.151.3"
+  },
+  "private": true
+}
