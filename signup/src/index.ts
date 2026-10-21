@@ -190,10 +190,11 @@ async function notifyOwner(env: Env, r: SignupRecord): Promise<void> {
   // 動態 import：讓 node 測試能載入本檔（cloudflare:* 只存在於 Workers runtime）。
   const { EmailMessage } = await import("cloudflare:email");
   const from = "rich4-signup@tappedia.com";
+  const to = "jj@jjlindev.com"; // 須與 wrangler.jsonc send_email destination_address 一致
   const text = `Android 測試報名\n\nEmail: ${r.email}\n姓名: ${r.last} ${r.first}\n\n請把 email 貼到 Play Console 內部測試 email 名單「Dev」，再到 /admin 標記完成並通知對方。`;
   const raw = [
     `From: rich4 signup <${from}>`,
-    "To: thiefjim@gmail.com",
+    `To: ${to}`,
     `Subject: =?UTF-8?B?${b64(`rich4 Android 報名：${r.email}`)}?=`,
     `Message-ID: <${crypto.randomUUID()}@tappedia.com>`,
     `Date: ${new Date().toUTCString()}`,
@@ -203,7 +204,7 @@ async function notifyOwner(env: Env, r: SignupRecord): Promise<void> {
     "",
     b64(text).replace(/.{76}/g, "$&\r\n"),
   ].join("\r\n");
-  await env.MAIL.send(new EmailMessage(from, "thiefjim@gmail.com", raw));
+  await env.MAIL.send(new EmailMessage(from, to, raw));
 }
 
 // ---------- handlers ----------

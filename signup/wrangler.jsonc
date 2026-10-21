@@ -9,7 +9,7 @@
   "triggers": { "crons": ["*/10 * * * *"] },
   "kv_namespaces": [{ "binding": "KV", "id": "b252cc1151f64489b6cabb3603418ace" }],
   // Android 報名通知。只能寄到已驗證的 Email Routing 收件地址；寄件網域 tappedia.com 已開 Email Routing。
-  "send_email": [{ "name": "MAIL", "destination_address": "thiefjim@gmail.com" }],
+  "send_email": [{ "name": "MAIL", "destination_address": "jj@jjlindev.com" }],
   "secrets": {
     "required": ["INVITE_CODE", "ADMIN_TOKEN", "ASC_PRIVATE_KEY", "ASC_KEY_ID", "ASC_ISSUER_ID"]
   }
